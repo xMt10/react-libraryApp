@@ -1,0 +1,32 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "Yaban",
+      "author": "Yakup Kadri",
+      "isbn": 11111,
+      "categoryId": "1"
+    },
+    {
+      "id": 1,
+      "name": "Yaban",
+      "author": "Yakup Kadri",
+      "isbn": 11111,
+      "categoryId": "1"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Novel"
+    },
+    {
+      "id": "2",
+      "name": "Story"
+    },
+    {
+      "id": "3",
+      "name": "Trial"
+    }
+  ]
+}
