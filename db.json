@@ -1,17 +1,10 @@
 {
   "books": [
     {
-      "id": 1,
-      "name": "Yaban",
-      "author": "Yakup Kadri",
-      "isbn": 11111,
-      "categoryId": "1"
-    },
-    {
-      "id": 1,
-      "name": "Yaban",
-      "author": "Yakup Kadri",
-      "isbn": 11111,
+      "id": 1663317451153,
+      "name": "abc",
+      "author": "def",
+      "isbn": "123456",
       "categoryId": "1"
     }
   ],
