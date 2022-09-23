@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 
 const ListBooks = (props) => {
     const [books,setBooks] = useState(null);
     const [categories,setCategories] = useState(null);
-    const [didUptade,setDidUptade] = useState(false)
+    const [didUptade,setDidUptade] = useState(false);
+    const [showModal,setShowModal] = useState(false);
+    const [bookWillBeDeleted,setBookWillBeDeleted] = useState();
+    const [bookNamePlus,setBookNamePlus] = useState();
 
     useEffect(()=> {
         axios
@@ -33,6 +37,7 @@ const ListBooks = (props) => {
     .delete(`http://localhost:3004/books/${id}`)
     .then((res)=> {
       setDidUptade(!didUptade);
+      setShowModal(false);
     })
     .catch((err)=>console.log(err))
 
@@ -51,7 +56,7 @@ const ListBooks = (props) => {
         <div className="container my-5">
 
           <div className="d-flex justify-content-end">
-            <Link to ="/add-book" className="btn btn-primary my-3 ">Add a book</Link>
+            <Link to ="/add-book" className="btn btn-outline-dark my-3 ">Add a book</Link>
           </div>
 
 <table className="table">
@@ -61,7 +66,6 @@ const ListBooks = (props) => {
       <th scope="col">Author</th>
       <th scope="col">Category</th>
       <th className="text-center" scope="col">ISBN</th>
-      <th className="text-center" scope="col">Operation</th>
     </tr>
   </thead>
   <tbody>
@@ -71,17 +75,24 @@ const ListBooks = (props) => {
 
 
         return(
-        <tr>   
+        <tr key={book.id}>   
           <td >{book.name}</td>
           <td>{book.author}</td>
           <td>{category.name}</td>
           <td className="text-center">{book.isbn === "" ? "-" : book.isbn }</td>
           <td>
-          <div className="btn-group" role="group">
+          <div className="btn-group " role="group">
          <button 
          type="button" 
          className="btn btn-sm btn-outline-danger"
-         onClick={() => deleteBook(book.id)}>Delete</button>
+         onClick={() => {
+          //deleteBook(book.id)
+         setShowModal(true);
+         setBookWillBeDeleted(book.id)
+         setBookNamePlus(book.name)
+        
+        }}>Delete</button>
+         <Link to= {`edit-book/${book.id}`} className="btn btn-sm btn-outline-success  mx-2 ">Edit</Link>
           </div> 
           </td>
 
@@ -93,6 +104,18 @@ const ListBooks = (props) => {
       
   </tbody>
 </table>
+  {
+    showModal === true && (
+        <Modal
+        title = "Deletion"
+        description = {`Are you sure want to delete "${bookNamePlus}"`}
+        setShowModal ={setShowModal} 
+        workTodo = {() => deleteBook(bookWillBeDeleted)} 
+        />
+    )
+  }
+  
+
 
  </div>
 
