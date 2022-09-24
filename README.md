@@ -1,3 +1,14 @@
+# MY LIBRARY 
+
+### Here is preview:
+
+![Banner gif](https://github.com/xMt10/react-libraryApp/blob/main/My%20Library.gif)
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
