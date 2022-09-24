@@ -11,7 +11,7 @@ const ListBooks = (props) => {
     const [didUptade,setDidUptade] = useState(false);
     const [showModal,setShowModal] = useState(false);
     const [bookWillBeDeleted,setBookWillBeDeleted] = useState();
-    const [bookNamePlus,setBookNamePlus] = useState();
+    const [bookNameWillBeDeleted,setBookNameWillBeDeleted] = useState();
 
     useEffect(()=> {
         axios
@@ -89,7 +89,7 @@ const ListBooks = (props) => {
           //deleteBook(book.id)
          setShowModal(true);
          setBookWillBeDeleted(book.id)
-         setBookNamePlus(book.name)
+         setBookNameWillBeDeleted(book.name)
         
         }}>Delete</button>
          <Link to= {`edit-book/${book.id}`} className="btn btn-sm btn-outline-success  mx-2 ">Edit</Link>
@@ -108,9 +108,9 @@ const ListBooks = (props) => {
     showModal === true && (
         <Modal
         title = "Deletion"
-        description = {`Are you sure want to delete "${bookNamePlus}"`}
-        setShowModal ={setShowModal} 
-        workTodo = {() => deleteBook(bookWillBeDeleted)} 
+        description = {`Are you sure want to delete "${bookNameWillBeDeleted}"`}
+        onCancel ={() => setShowModal(false)} 
+        onConfirm = {() => deleteBook(bookWillBeDeleted)} 
         />
     )
   }

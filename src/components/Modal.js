@@ -1,12 +1,12 @@
 import React from "react";
 
 const Modal = (props) => {
-    const {setShowModal,workTodo,title,description} = props;
+    const {onCancel,onConfirm,title,description} = props;
 
     
     return(
 
-        <div
+        <button onClick={onCancel}
         style={{
             position:"absolute",
             width:"100vw",
@@ -16,7 +16,8 @@ const Modal = (props) => {
             backgroundColor:"rgba(0,0,0,0.4)",
             display:"flex",
             justifyContent:"center",
-            alignItems:"center"
+            alignItems:"center",
+            cursor:"default"
 
         }}>
             <div
@@ -32,16 +33,16 @@ const Modal = (props) => {
 
 
               <div className="d-flex justify-content-center">
-                <button onClick={() => setShowModal(false)}
+                <button onClick={onCancel}
                  className="btn btn-sm  btn-outline-dark me-2">Cancel</button>
-                <button onClick={workTodo}
+                <button onClick={onConfirm}
                 className="btn btn-sm btn-outline-danger">Accept</button>
             </div>
 
             </div>
 
             
-        </div>
+        </button>
 
     )
 }

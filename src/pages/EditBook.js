@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../components/Loading";
+import Modal from "../components/Modal";
 
 const EditBook = () => {
   const params = useParams();
@@ -13,6 +14,8 @@ const EditBook = () => {
   const [isbn, setIsbn] = useState();
   const [category,setCategory] = useState();
   const [categories, setCategories] = useState(null);
+
+  const [showModal,setShowModal] = useState(false);
 
 
   useEffect(() => {
@@ -36,26 +39,35 @@ const EditBook = () => {
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-        if(bookName === "" || author === "" || category === ""){
-           return alert("Bookname, Author and Category cannot be left blank")
+    setShowModal(true);
+        
+}
 
-  }
-  const updatedBook = {
-    id:params.bookId,
-    name:bookName,
-    author:author,
-    categoryId:category,
-    isbn:isbn
+const editBook = () => {
+
+  if(bookName === "" || author === "" || category === ""){
+    return alert("Bookname, Author and Category cannot be left blank")
+
+}
+ 
+const updatedBook = {
+  id:params.bookId,
+  name:bookName,
+  author:author,
+  categoryId:category,
+  isbn:isbn
   }
   console.log("updated book",updatedBook)
   axios
   .put((`http://localhost:3004/books/${params.bookId}`),updatedBook)
   .then((res)=>{
-    console.log(res);
-    navigate("/");
+  console.log(res);
+  setShowModal(false);
+  navigate("/");
   })
   .catch((err)=>console.log("edit err",err))
-}
+  
+ }
 
 
   if(categories === null){
@@ -126,6 +138,17 @@ const EditBook = () => {
 
 
   </div>
+
+  {
+   showModal === true && (
+     <Modal 
+     title = "Updating"
+     description = {`Are you sure want to update as "${bookName}" ?`}
+     onCancel = {() => setShowModal(false)}
+     onConfirm = {() => editBook()}
+      />
+   )
+  }
         </div>
     )
 }
